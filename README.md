@@ -1,6 +1,6 @@
 # Bioinformatics Exome Analysis Assignment
 
-This repository contains scripts and workflow for downloading, processing, aligning, and analyzing paired-end exome sequencing data from SRA. Steps include quality control, alignment to the human genome, variant calling using GATK, and variant annotation.
+This repository contains scripts and workflow for downloading, processing, aligning, and analyzing paired-end exome sequencing data from SRA. Steps include quality control, alignment to the human genome, variant calling and variant annotation.
 
 
 ##  Download Paired-end FASTQ Files
@@ -83,7 +83,7 @@ picard MarkDuplicates I=sample2_aln.bam O=sample2_dedup.bam M=sample2_dedup_metr
 
 ```
 
-## 7. To call variants using standard GATK best practices:
+## 7. To call variants:
 For this step use BBTools bioinformatics tools, including BBMap to call variants. Here is the link to download the tool:
 [Where to update BBMap](https://github.com/abiswas-odu/Disco/commit/efb609566e4b3785e0bede252a842a4024be72ea)
 ```bash
