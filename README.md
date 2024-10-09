@@ -5,8 +5,9 @@ This repository contains scripts and workflow for downloading, processing, align
 
 ##  Download Paired-end FASTQ Files
 
-[Sample 1 was download from this link](https://trace.ncbi.nlm.nih.gov/Traces/?run=SRR30834366
-)
+[Sample 1 was download from this link: SRR30834366](https://trace.ncbi.nlm.nih.gov/Traces/?run=SRR30834366)
+
+[Sample 2 was download from this link: SRR30874642](https://trace.ncbi.nlm.nih.gov/Traces/?run=SRR30874642)
 
 ## Pre-process the Paired-end FASTQ Files
 
@@ -83,25 +84,15 @@ picard MarkDuplicates I=sample2_aln.bam O=sample2_dedup.bam M=sample2_dedup_metr
 ```
 
 ## 7. To call variants using standard GATK best practices:
-For this step use GATK to call variants. Here is the link to download the tool:
-[GATK](https://github.com/broadinstitute/gatk/releases)
+For this step use BBTools bioinformatics tools, including BBMap to call variants. Here is the link to download the tool:
+[Where to update BBMap](https://github.com/abiswas-odu/Disco/commit/efb609566e4b3785e0bede252a842a4024be72ea)
 ```bash
-gatk HaplotypeCaller -R hg38.fasta -I sample1_dedup.bam -O sample1_variants.vcf
-gatk HaplotypeCaller -R hg38.fasta -I sample2_dedup.bam -O sample2_variants.vcf
+./callvariants.sh in=sample1_aln.bam ref=hg38.fasta out=sample1_variants.vcf ploidy=2
+./callvariants.sh in=sample2_aln.bam ref=hg38.fasta out=sample2_variants.vcf ploidy=2
 
 
 ```
 
-## 8. To separate out SNPs and Indels into individual vcf files:
-For this step use GATK to call variants. Here is the link to download the tool:
-[GATK](https://github.com/broadinstitute/gatk/releases)
-```bash
-gatk SelectVariants -R hg38.fasta -V sample1_variants.vcf --select-type-to-include SNP -O sample1_snps.vcf
-gatk SelectVariants -R hg38.fasta -V sample1_variants.vcf --select-type-to-include INDEL -O sample1_indels.vcf
-
-gatk SelectVariants -R hg38.fasta -V sample2_variants.vcf --select-type-to-include SNP -O sample2_snps.vcf
-gatk SelectVariants -R hg38.fasta -V sample2_variants.vcf --select-type-to-include INDEL -O sample2_indels.vcf
-
-
-```
-
+## 8. To perform Variant Annotation:
+For this step use SnpEff to annotate variants. Here the Galaxy integration was used, link to access the freely available open source tool:
+[SnpEff eff](https://usegalaxy.org/?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/snpeff/snpEff/4.3+T.galaxy2)
